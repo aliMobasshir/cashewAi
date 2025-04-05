@@ -1,5 +1,5 @@
 import React, { useEffect ,useState} from 'react'
-import {Container,Logo,LogoutBtn} from '../index'
+import {Container,Logo,LogoutBtn,HistoryIcon,NewChatIcon} from '../index'
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -28,10 +28,9 @@ function Header() {
 
 const navItems = [
   {name: 'Home', path: '/',active:true},
+  {name: 'History', path: '/history',active:true},
   {name: 'Login', path: '/login',active:!authStatus},
   {name: 'Signup', path: '/signup',active:!authStatus},
-  {name: 'History', path: '/history',active:authStatus},
-  {name: 'Share', path: '/share',active:authStatus}
 ]
 
    return (
@@ -44,17 +43,26 @@ const navItems = [
           </Link>
         </div>
 
-        {authStatus && userData && (
-            <div className=' ml-8 inline-block px-6 py-2 duration-200 text-[#48726b] text-lg font-mono  '>
-              <p>Hello, {userData.name}</p>
-            </div>
-          )}
+        <div className='ml-8 inline-block px-6 py-2 duration-200 text-[#48726b] text-lg font-mono'>
+  <p>
+    Hello, {authStatus && userData ? userData.name : "Guest"}
+  </p>
+</div>
+
 
         <ul className='flex ml-auto'>
           {navItems.map((item) => (
             item.active && (
               <li key={item.name} >
-                <button className='inline-block px-6 py-2 duration-200 text-neutral-400 text-lg font-mono hover:text-neutral-300 cursor-pointer' onClick={() => navigate(item.path)}>{item.name}</button>
+                <button className='inline-block px-6 py-2 duration-200 text-neutral-400 text-lg font-mono hover:text-neutral-300 cursor-pointer' onClick={() => navigate(item.path)}>{item.name === 'History' ? (
+  <HistoryIcon />
+) : item.name === 'Home' ? (
+  <NewChatIcon />
+) : (
+  item.name
+)}
+
+</button>
               </li>
             )
           ))}

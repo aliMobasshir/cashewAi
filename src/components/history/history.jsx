@@ -1,44 +1,66 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { appwriteService } from "../../appwrite/config";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ChatHistory = () => {
+const History = () => {
   const [chats, setChats] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
+  const userData = useSelector((state) => state.auth.userData);
+  const authStatus = useSelector((state) => state.auth.status); 
+  const userId = userData?.$id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchChats = async () => {
-      const allChats = await appwriteService.getAllChats();
-      setChats(allChats);
+      if (userId) {
+        const userChats = await appwriteService.getAllChats(userId);
+        setChats(
+          userChats.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )
+        );
+        
+      }
     };
     fetchChats();
-  }, []);
+  }, [userId]);
+
+  const handleOpenChat = (chatId) => {
+    navigate(`/${chatId}`);
+  };
+
+  if (!authStatus) {
+    return (
+      <div className="max-w-3xl mx-auto p-5 bg-zinc-800 rounded-lg shadow-md text-center">
+        <h2 className="text-2xl font-bold  text-neutral-400 mb-4">Your Conversations</h2>
+        <p className="text-red-500">Please login to see your conversation history.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4">
-      <button
-        onClick={() => setShowHistory(!showHistory)}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-      >
-        {showHistory ? "Hide Chat History" : "View Chat History"}
-      </button>
-
-      {showHistory && (
-        <div className="mt-4 p-4 border rounded shadow">
-          <h2 className="text-lg font-bold">Chat History</h2>
-          <ul className="mt-2">
-            {chats.map((chat) => (
-              <li key={chat.$id} className="border-b py-2">
-                <Link to={`/chat/${chat.$id}`} className="text-blue-500">
-                  {chat.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="max-w-3xl mx-auto p-5 bg-zinc-800 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-white mb-4">Your Conversations</h2>
+      {chats.length === 0 ? (
+        <p className="text-neutral-400">No conversations yet.</p>
+      ) : (
+        <ul className="space-y-3">
+          {chats.map((chat) => (
+            <li
+              key={chat.$id}
+              onClick={() => handleOpenChat(chat.$id)}
+              className="cursor-pointer p-4 bg-zinc-700 text-white rounded-xl hover:bg-zinc-600 transition"
+            >
+              {chat.title || "Untitled Conversation"}
+              <span className="block text-sm text-gray-400">
+                {new Date(chat.createdAt).toLocaleString()}
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
 };
 
-export default ChatHistory;
+export default History;

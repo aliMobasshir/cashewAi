@@ -10,6 +10,9 @@ import Login from "./login.jsx"
 import Chat from "./chat/chat.jsx"
 import Logoimage from "./assets/Logo.png"
 import upArrow from "./assets/up-arrow.png"
+import History from "./history/history.jsx";
+import HistoryIcon from "./assets/history-icon.jsx"
+import NewChatIcon from "./assets/HomeIcon.jsx"
 
 export{
     Button,
@@ -23,5 +26,8 @@ export{
     Login,
     Chat,
     Logoimage,
-    upArrow
+    upArrow,
+    History,
+    HistoryIcon,
+    NewChatIcon
 }

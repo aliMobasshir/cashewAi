@@ -7,53 +7,41 @@ import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import store from './store/store' 
 import App from "./App"
-import {Login,SignUp,Chat} from "./components/index"
+import {Login,SignUp,Chat,History} from "./components/index"
 import "./index.css";
 
 
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
+    {
+      path: "/",
+      element: <App />,
+      children: [
         {
-            path: "/",
-            element: <Chat />,
+          index: true,
+          element: <Chat />,
         },
         {
-            path: "/login",
-            element: (
-                
-                    <Login />
-               
-            ),
+          path: "login",
+          element: <Login />,
         },
         {
-            path: "/signup",
-            element: (
-              
-                    <SignUp />
-              
-            ),
+          path: "signup",
+          element: <SignUp />,
         },
         {
-            path: "/history",
-            element: (
-                
-                    
-                    <History />
-            ),
+          path: "history",
+          element: <History />,
         },
-      
-      
-        {
-            path: "/:id",
-            element: <Chat/>,
-        },
-    ],
-},
-])
+         {
+      path: ":id",
+      element: <Chat />, 
+    },
+      ],
+    },
+   
+  ]);
+  
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
