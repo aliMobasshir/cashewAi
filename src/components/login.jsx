@@ -27,7 +27,7 @@ function Login() {
     }
 
     return (
-        <div className="flex items-center justify-center w-full h-screen px-4 sm:px-6 bg-zinc-900">
+        <div className="flex items-center justify-center w-full h-[80vh] px-4 sm:px-6 bg-zinc-900">
             <div className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-lg bg-zinc-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 border border-zinc-700 shadow-lg">
                 <div className="mb-2 sm:mb-4 flex justify-center">
                     <span className="inline-block w-16 sm:w-20 md:w-full max-w-[100px]">
