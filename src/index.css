@@ -12,3 +12,8 @@
     background-color: #555; /* thumb color */
     border-radius: 10px;
   }
+
+  :root {
+    --vh: 1vh;
+  }
+  

@@ -5,12 +5,12 @@ import { login, logout } from './store/authslice'
 import { Header } from './components'
 import { Outlet } from 'react-router-dom'
 
-
 function App() {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
   useEffect(() => {
+    
     authservice.getCurrentUser()
       .then((userData) => {
         if (userData) {
@@ -20,16 +20,31 @@ function App() {
         }
       })
       .finally(() => setLoading(false))
-  }
-    , [])
+
+    // Viewport height fix
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+
+    setVh()
+    window.addEventListener('resize', setVh)
+    window.addEventListener('orientationchange', setVh)
+
+    return () => {
+      window.removeEventListener('resize', setVh)
+      window.removeEventListener('orientationchange', setVh)
+    }
+  }, [])
 
   return !loading ? (
-    <div className='min-h-[90vh] sm:min-h-screen flex flex-wrap content-between bg-zinc-900'>
+    <div className='min-h-[calc(var(--vh)_*_100)] flex flex-wrap content-between bg-zinc-900'>
       <div className='w-full block'>
         <Header />
-       <Outlet />
+        <Outlet />
       </div>
-    </div>) : null
+    </div>
+  ) : null
 }
 
 export default App
