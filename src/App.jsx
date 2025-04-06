@@ -24,7 +24,7 @@ function App() {
     , [])
 
   return !loading ? (
-    <div className='min-h-[90vh] flex flex-wrap content-between bg-zinc-900'>
+    <div className='min-h-[90vh] md:min-h-screen flex flex-wrap content-between bg-zinc-900'>
       <div className='w-full block'>
         <Header />
        <Outlet />
