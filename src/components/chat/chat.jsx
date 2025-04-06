@@ -118,7 +118,7 @@ const Chat = () => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Your thoughts go here..."
             minRows={1}
-            maxRows={2}
+            maxRows={4}
             className="flex-grow resize-none py-2 px-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-3 focus:ring-[#48726b] text-white bg-zinc-900 overflow-y-auto custom-scrollbar"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
