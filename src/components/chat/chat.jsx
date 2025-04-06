@@ -72,7 +72,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="max-w-3xl w-full mx-auto border rounded-xl shadow-lg bg-zinc-800 flex flex-col h-[88vh] md:h-[80vh] p-2">
+    <div className="max-w-3xl w-full mx-auto border rounded-xl shadow-lg bg-zinc-800 flex flex-col h-[80vh]  p-2">
       <div className="flex-grow overflow-y-auto mb-2 space-y-2 p-2 text-base custom-scrollbar border-b border-gray-200 relative">
         {messages.length === 0 ? (
           <div className="absolute inset-0 flex items-center justify-center">
