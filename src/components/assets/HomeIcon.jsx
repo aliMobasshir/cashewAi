@@ -3,7 +3,7 @@ const HomeIcon = ({ className = '' }) => (
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 122.88 112.07"
       fill="currentColor"
-      className={`w-6 h-6 text-neutral-400 hover:text-neutral-300 transition-colors duration-200 ${className}`}
+      className={` w-6 h-6  ${className}`}
     >
       <path
         fillRule="evenodd"

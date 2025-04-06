@@ -9,7 +9,7 @@ const HistoryIcon = ({ className = '' }) => (
     fillRule="evenodd"
     clipRule="evenodd"
     viewBox="0 0 512 513.11"
-    className={`w-6 h-6 text-neutral-400 hover:text-neutral-300 transition-colors duration-200 ${className}`}
+    className={`w-6 h-6 ${className}`}
   >
     <path
       fill="currentColor"

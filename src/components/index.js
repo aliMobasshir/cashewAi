@@ -12,7 +12,7 @@ import Logoimage from "./assets/Logo.png"
 import upArrow from "./assets/up-arrow.png"
 import History from "./history/history.jsx";
 import HistoryIcon from "./assets/history-icon.jsx"
-import NewChatIcon from "./assets/HomeIcon.jsx"
+import HomeIcon from "./assets/HomeIcon.jsx"
 
 export{
     Button,
@@ -29,5 +29,5 @@ export{
     upArrow,
     History,
     HistoryIcon,
-    NewChatIcon
+    HomeIcon
 }
