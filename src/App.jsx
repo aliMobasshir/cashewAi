@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import authservice from './appwrite/auth'
 import { login, logout } from './store/authslice'
 import { Header } from './components'
-import Chat from './components/chat/chat'
 import { Outlet } from 'react-router-dom'
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { appwriteService } from "../../appwrite/config"; // update path as needed
+import { appwriteService } from "../../appwrite/config";
 import service from "../../gemini/service";
 import { Logoimage, upArrow, Input } from "../index";
 import { useSelector } from "react-redux";
@@ -58,13 +58,13 @@ const Chat = () => {
     setMessages(finalMessages);
     setLoading(false);
 
-    // Save to Appwrite
+   
     if (!chatId) {
       const response = await appwriteService.saveChat(null, userId, input.slice(0, 50), finalMessages);
       if (response && response.$id) {
         setChatId(response.$id);
         console.log("Navigating to:", `/${response.$id}`);
-        navigate(`/${response.$id}`); // Route to this conversation
+        navigate(`/${response.$id}`); 
       }
     } else {
       await appwriteService.saveChat(chatId, null, null, finalMessages);

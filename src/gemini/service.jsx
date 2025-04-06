@@ -1,4 +1,3 @@
-// src/services/aiService.js
 import { GoogleGenAI } from "@google/genai";
 import conf from "../conf";
 

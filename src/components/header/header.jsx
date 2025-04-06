@@ -47,7 +47,7 @@ function Header() {
               <Logo width="70px" />
             </Link>
             
-            {/* Hide greeting on small screens */}
+            {/* Hiding the greeting on small screens */}
             <div className='hidden sm:block ml-2 md:ml-8 px-2 md:px-6 py-1 md:py-2 duration-200 text-[#48726b] text-sm md:text-base lg:text-lg font-mono'>
               <p>
                 Hello, {authStatus && userData ? userData.name : "Guest"}
