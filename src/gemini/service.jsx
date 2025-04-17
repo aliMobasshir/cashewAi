@@ -5,11 +5,11 @@ const ai = new GoogleGenAI({ apiKey: conf.geminiApiKey });
 
 export class Service {
     
-    async generateContent(prompt)  {
+    async generateContent(conversationHistory)  {
         try {
           const response = await ai.models.generateContent({
             model: "gemini-2.0-flash",
-            contents: prompt,
+            contents: conversationHistory,
           });
           return response.text;
         } catch (error) {

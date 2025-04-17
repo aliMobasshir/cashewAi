@@ -51,20 +51,28 @@ const Chat = () => {
     setInput("");
     setLoading(true);
 
-    const aiResponse = await service.generateContent(input);
+    // Convert existing messages to Gemini format
+    const geminiHistory = updatedMessages.map((msg) => ({
+      role: msg.sender === "user" ? "user" : "model",
+      parts: [{ text: msg.text }],
+    }));
+
+    // Send the full history to Gemini
+    const aiResponse = await service.generateContent(geminiHistory);
+
     const aiMessage = { sender: "ai", text: aiResponse };
     const finalMessages = [...updatedMessages, aiMessage];
 
     setMessages(finalMessages);
     setLoading(false);
 
-   
+
     if (!chatId) {
       const response = await appwriteService.saveChat(null, userId, input.slice(0, 50), finalMessages);
       if (response && response.$id) {
         setChatId(response.$id);
         console.log("Navigating to:", `/${response.$id}`);
-        navigate(`/${response.$id}`); 
+        navigate(`/${response.$id}`);
       }
     } else {
       await appwriteService.saveChat(chatId, null, null, finalMessages);
@@ -85,11 +93,10 @@ const Chat = () => {
             {messages.map((msg, index) => (
               <div key={index} className={`${msg.sender === "user" ? "flex justify-end" : ""}`}>
                 <div
-                  className={`p-2 rounded-xl leading-relaxed ${
-                    msg.sender === "user"
+                  className={`p-2 rounded-xl leading-relaxed ${msg.sender === "user"
                       ? "bg-neutral-500 max-w-lg text-white rounded-tr-none"
                       : "mr-auto max-w-full text-neutral-300"
-                  }`}
+                    }`}
                 >
                   {msg.sender === "ai" ? (
                     <div className="prose prose-invert prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }} />
@@ -103,7 +110,7 @@ const Chat = () => {
             ))}
           </div>
         )}
-        
+
         {loading && (
           <div>
             <img src={Logoimage} alt="Loading..." className="w-10 h-10 animate-spin" />
@@ -130,11 +137,10 @@ const Chat = () => {
           <button
             onClick={handleSend}
             disabled={!input.trim()}
-            className={`p-2 rounded-lg transition-all duration-200 w-9 h-9 flex items-center justify-center ${
-              input.trim() 
-                ? "bg-[#48726b] hover:bg-[#3b5a4e] text-white cursor-pointer" 
+            className={`p-2 rounded-lg transition-all duration-200 w-9 h-9 flex items-center justify-center ${input.trim()
+                ? "bg-[#48726b] hover:bg-[#3b5a4e] text-white cursor-pointer"
                 : "bg-zinc-700 text-zinc-500 cursor-not-allowed"
-            }`}
+              }`}
           >
             <img src={upArrow} alt="send" className="w-4 h-4" />
           </button>
