@@ -8,7 +8,7 @@ export class Service {
     async generateContent(conversationHistory)  {
         try {
           const response = await ai.models.generateContent({
-            model: "gemini-2.0-flash",
+            model: "gemini-2.5-flash",
             contents: conversationHistory,
           });
           return response.text;
